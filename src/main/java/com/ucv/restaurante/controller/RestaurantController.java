@@ -12,20 +12,21 @@ import javafx.scene.layout.HBox;
 public class RestaurantController {
 
     @FXML private TextField txtMesa;
+    @FXML private ComboBox<Mesero> cmbMesero;
     @FXML private Label lblTotalHistorial;
     @FXML private TableView<Producto> tvSeleccionPlatos, tvSeleccionBebidas;
-    @FXML private TableColumn<Producto, String> colPlatoNombre, colBebidaNombre;
-    @FXML private TableColumn<Producto, Double> colPlatoPrecio, colBebidaPrecio;
-    @FXML private TableColumn<Producto, Integer> colPlatoCant, colBebidaCant;
-    @FXML private TableColumn<Producto, Void> colPlatoAcciones, colBebidaAcciones;
+    @FXML private TableColumn<Producto, String>  colPlatoNombre,    colBebidaNombre;
+    @FXML private TableColumn<Producto, Double>  colPlatoPrecio,    colBebidaPrecio;
+    @FXML private TableColumn<Producto, Integer> colPlatoCant,      colBebidaCant;
+    @FXML private TableColumn<Producto, Void>    colPlatoAcciones,  colBebidaAcciones;
 
-    @FXML private TableView<Pedido> tvHistorialGeneral;
-    @FXML private TableColumn<Pedido, Integer> colHistorialMesa, colHistorialCantidad;
-    @FXML private TableColumn<Pedido, String> colHistorialProducto;
-    @FXML private TableColumn<Pedido, Double> colHistorialSubtotal;
+    @FXML private TableView<Pedido>              tvHistorialGeneral;
+    @FXML private TableColumn<Pedido, Integer>   colHistorialMesa,  colHistorialCantidad;
+    @FXML private TableColumn<Pedido, String>    colHistorialProducto;
+    @FXML private TableColumn<Pedido, Double>    colHistorialSubtotal;
 
     private GirasolRestaurante modelo;
-    private final ObservableList<Producto> datosPlatos = FXCollections.observableArrayList();
+    private final ObservableList<Producto> datosPlatos  = FXCollections.observableArrayList();
     private final ObservableList<Producto> datosBebidas = FXCollections.observableArrayList();
     private ObservableList<Pedido> registrosHistorial;
 
@@ -34,7 +35,6 @@ public class RestaurantController {
         modelo = GirasolRestaurante.getInstancia();
         registrosHistorial = FXCollections.observableArrayList(modelo.getListaPedidos());
 
-        // Enlace automático a las celdas usando las propiedades simplificadas
         colPlatoNombre.setCellValueFactory(new PropertyValueFactory<>("nombreDetallado"));
         colPlatoPrecio.setCellValueFactory(new PropertyValueFactory<>("precioUnidad"));
         colPlatoCant.setCellValueFactory(new PropertyValueFactory<>("cantTemp"));
@@ -50,7 +50,6 @@ public class RestaurantController {
 
         tvHistorialGeneral.setItems(registrosHistorial);
 
-        // Clasificación directa de productos
         for (Producto p : modelo.getMenu()) {
             if (p instanceof Plato) datosPlatos.add(p);
             else datosBebidas.add(p);
@@ -61,22 +60,30 @@ public class RestaurantController {
 
         tvSeleccionPlatos.setItems(datosPlatos);
         tvSeleccionBebidas.setItems(datosBebidas);
+
+        // Cargar meseros en el ComboBox
+        cmbMesero.getItems().addAll(modelo.getListaMeseros());
+        cmbMesero.getSelectionModel().selectFirst();
+
         actualizarTotalCaja();
     }
 
     private void inyectarAcciones(TableColumn<Producto, Void> columna) {
         columna.setCellFactory(param -> new TableCell<>() {
-            private final Button btnMas = new Button("+"), btnMenos = new Button("-");
-            private final HBox layout = new HBox(btnMenos, btnMas);
+            private final Button btnMas   = new Button("+");
+            private final Button btnMenos = new Button("-");
+            private final HBox layout     = new HBox(btnMenos, btnMas);
             {
-                layout.setSpacing(8); layout.setAlignment(Pos.CENTER);
-                btnMas.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-cursor: hand; -fx-font-weight: bold;");
-                btnMenos.setStyle("-fx-background-color: #F44336; -fx-text-fill: white; -fx-cursor: hand; -fx-font-weight: bold;");
-                btnMas.setOnAction(e -> { getTableView().getItems().get(getIndex()).cambiarCant(1); getTableView().refresh(); });
+                layout.setSpacing(8);
+                layout.setAlignment(Pos.CENTER);
+                // Sin colores — estilo por defecto de JavaFX
+                btnMas.setOnAction(e  -> { getTableView().getItems().get(getIndex()).cambiarCant(1);  getTableView().refresh(); });
                 btnMenos.setOnAction(e -> { getTableView().getItems().get(getIndex()).cambiarCant(-1); getTableView().refresh(); });
             }
-            @Override protected void updateItem(Void item, boolean empty) {
-                super.updateItem(item, empty); setGraphic(empty ? null : layout);
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                setGraphic(empty ? null : layout);
             }
         });
     }
@@ -84,21 +91,35 @@ public class RestaurantController {
     @FXML
     void onEnviarOrdenALaCocina() {
         String mesaStr = txtMesa.getText().trim();
-        if (mesaStr.isEmpty()) { alerta("Mesa Vacía", "Por favor ponga una mesa."); return; }
+        if (mesaStr.isEmpty()) { alerta("Mesa Vacía", "Por favor ingrese un número de mesa."); return; }
 
         try {
             int numMesa = Integer.parseInt(mesaStr);
             if (numMesa <= 0) throw new NumberFormatException();
 
-            // Unificamos el envío sumando el resultado booleano de ambas listas
-            boolean enviado = mandarComanda(datosPlatos, numMesa) | mandarComanda(datosBebidas, numMesa);
+            // Validar que la mesa existe
+            Mesa mesa = modelo.getMesa(numMesa);
+            if (mesa == null) { alerta("Mesa no existe", "La mesa " + numMesa + " no existe en el sistema."); return; }
 
+            // Validar que hay un mesero seleccionado
+            Mesero mesero = cmbMesero.getValue();
+            if (mesero == null) { alerta("Sin mesero", "Selecciona un mesero antes de enviar."); return; }
+
+            boolean enviado = mandarComanda(datosPlatos, numMesa) | mandarComanda(datosBebidas, numMesa);
             if (!enviado) { alerta("Orden vacía", "No has seleccionado ningún producto con (+)."); return; }
 
-            tvSeleccionPlatos.refresh(); tvSeleccionBebidas.refresh();
-            actualizarTotalCaja(); txtMesa.clear();
+            tvSeleccionPlatos.refresh();
+            tvSeleccionBebidas.refresh();
+            actualizarTotalCaja();
+            txtMesa.clear();
+            // Generar factura y mostrar resumen
+            Factura factura = modelo.generarFactura(numMesa);
+            new Alert(Alert.AlertType.INFORMATION,
+                    "Pedido registrado correctamente.\n" +
+                            factura.getResumen() + "\n" +
+                            "Atendido por: " + mesero.getNombre(),
+                    ButtonType.OK).showAndWait();
 
-            new Alert(Alert.AlertType.INFORMATION, "Pedido enviado al historial de la Mesa " + numMesa, ButtonType.OK).showAndWait();
         } catch (NumberFormatException e) {
             alerta("Error", "La mesa debe ser un número entero válido.");
         }
@@ -111,7 +132,7 @@ public class RestaurantController {
                 Pedido p = new Pedido(mesa, prod, prod.getCantTemp());
                 modelo.getListaPedidos().add(p);
                 registrosHistorial.add(p);
-                prod.cambiarCant(-prod.getCantTemp()); // Regresa la fila a 0 unidades
+                prod.cambiarCant(-prod.getCantTemp());
                 flag = true;
             }
         }
@@ -125,17 +146,23 @@ public class RestaurantController {
 
     @FXML
     void onResetearTodo() {
-        modelo.getListaPedidos().clear(); registrosHistorial.clear();
-        datosPlatos.forEach(p -> p.cambiarCant(-p.getCantTemp()));
+        modelo.getListaPedidos().clear();
+        registrosHistorial.clear();
+        datosPlatos.forEach(p  -> p.cambiarCant(-p.getCantTemp()));
         datosBebidas.forEach(b -> b.cambiarCant(-b.getCantTemp()));
-        tvSeleccionPlatos.refresh(); tvSeleccionBebidas.refresh();
-        actualizarTotalCaja(); txtMesa.clear();
+        modelo.getListaMesas().forEach(Mesa::liberar); // Libera todas las mesas
+        tvSeleccionPlatos.refresh();
+        tvSeleccionBebidas.refresh();
+        actualizarTotalCaja();
+        txtMesa.clear();
     }
 
     @FXML void onSalirAplicacion() { javafx.application.Platform.exit(); }
 
     private void alerta(String tit, String msg) {
         Alert a = new Alert(Alert.AlertType.WARNING, msg, ButtonType.OK);
-        a.setTitle(tit); a.setHeaderText(null); a.showAndWait();
+        a.setTitle(tit);
+        a.setHeaderText(null);
+        a.showAndWait();
     }
 }
