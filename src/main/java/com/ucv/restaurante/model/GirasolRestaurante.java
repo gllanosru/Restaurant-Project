@@ -28,6 +28,7 @@ public class GirasolRestaurante {
         menu.add(new Bebida("Chicha Morada", 12.0, "Jarra"));
         menu.add(new Bebida("Inca Kola",      3.5, "Personal"));
         menu.add(new Bebida("Coca Cola",      3.5, "Personal"));
+    }
     private void cargarMesas() {
         for (int i = 1; i <= 10; i++) {
             listaMesas.add(new Mesa(i, 4));

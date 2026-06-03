@@ -26,29 +26,33 @@
                     <content>
                         <AnchorPane prefHeight="500.0" prefWidth="900.0" style="-fx-padding: 15;">
                             <children>
-                                <Label layoutX="14.0" layoutY="14.0" text=" Número de Mesa Asignada:">
-                                    <font>
-                                        <Font name="System Bold" size="14.0" />
-                                    </font>
+                                <Label layoutX="14.0" layoutY="14.0" text=" Número de Mesa:">
+                                    <font><Font name="System Bold" size="14.0" /></font>
                                 </Label>
-                                <TextField fx:id="txtMesa" layoutX="230.0" layoutY="11.0" prefHeight="25.0" prefWidth="100.0" promptText="Ej: 4" style="-fx-font-size: 13px; -fx-alignment: center;" />
+                                <TextField fx:id="txtMesa" layoutX="175.0" layoutY="11.0"
+                                           prefHeight="25.0" prefWidth="80.0"
+                                           promptText="Ej: 4"
+                                           style="-fx-font-size: 13px; -fx-alignment: center;" />
+
+                                <Label layoutX="270.0" layoutY="14.0" text=" Mesero:">
+                                    <font><Font name="System Bold" size="14.0" /></font>
+                                </Label>
+                                <ComboBox fx:id="cmbMesero" layoutX="335.0" layoutY="11.0" prefWidth="200.0" />
 
                                 <HBox layoutX="14.0" layoutY="55.0" prefHeight="350.0" prefWidth="850.0" spacing="20.0">
                                     <children>
 
                                         <VBox prefHeight="350.0" prefWidth="415.0" spacing="8.0">
                                             <children>
-                                                <Label text="PLATOS DISPONIBLES" textFill="#0d47a1">
-                                                    <font>
-                                                        <Font name="System Bold" size="12.0" />
-                                                    </font>
+                                                <Label text="PLATOS DISPONIBLES">
+                                                    <font><Font name="System Bold" size="12.0" /></font>
                                                 </Label>
                                                 <TableView fx:id="tvSeleccionPlatos" prefHeight="320.0" prefWidth="415.0">
                                                     <columns>
-                                                        <TableColumn fx:id="colPlatoNombre" prefWidth="180.0" text="Detalle del Plato" />
-                                                        <TableColumn fx:id="colPlatoPrecio" prefWidth="80.0" text="Precio" />
-                                                        <TableColumn fx:id="colPlatoCant" prefWidth="55.0" text="Cant." />
-                                                        <TableColumn fx:id="colPlatoAcciones" prefWidth="85.0" text="Agregar" />
+                                                        <TableColumn fx:id="colPlatoNombre"   prefWidth="180.0" text="Detalle del Plato" />
+                                                        <TableColumn fx:id="colPlatoPrecio"   prefWidth="80.0"  text="Precio" />
+                                                        <TableColumn fx:id="colPlatoCant"     prefWidth="55.0"  text="Cant." />
+                                                        <TableColumn fx:id="colPlatoAcciones" prefWidth="85.0"  text="Agregar" />
                                                     </columns>
                                                 </TableView>
                                             </children>
@@ -56,17 +60,15 @@
 
                                         <VBox prefHeight="350.0" prefWidth="415.0" spacing="8.0">
                                             <children>
-                                                <Label text="BEBIDAS DISPONIBLES" textFill="#0d47a1">
-                                                    <font>
-                                                        <Font name="System Bold" size="12.0" />
-                                                    </font>
+                                                <Label text="BEBIDAS DISPONIBLES">
+                                                    <font><Font name="System Bold" size="12.0" /></font>
                                                 </Label>
                                                 <TableView fx:id="tvSeleccionBebidas" prefHeight="320.0" prefWidth="415.0">
                                                     <columns>
-                                                        <TableColumn fx:id="colBebidaNombre" prefWidth="180.0" text="Detalle de Bebida" />
-                                                        <TableColumn fx:id="colBebidaPrecio" prefWidth="80.0" text="Precio" />
-                                                        <TableColumn fx:id="colBebidaCant" prefWidth="55.0" text="Cant." />
-                                                        <TableColumn fx:id="colBebidaAcciones" prefWidth="85.0" text="Agregar" />
+                                                        <TableColumn fx:id="colBebidaNombre"   prefWidth="180.0" text="Detalle de Bebida" />
+                                                        <TableColumn fx:id="colBebidaPrecio"   prefWidth="80.0"  text="Precio" />
+                                                        <TableColumn fx:id="colBebidaCant"     prefWidth="55.0"  text="Cant." />
+                                                        <TableColumn fx:id="colBebidaAcciones" prefWidth="85.0"  text="Agregar" />
                                                     </columns>
                                                 </TableView>
                                             </children>
@@ -74,7 +76,10 @@
                                     </children>
                                 </HBox>
 
-                                <Button layoutX="14.0" layoutY="425.0" mnemonicParsing="false" onAction="#onEnviarOrdenALaCocina" prefHeight="45.0" prefWidth="850.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 15px; -fx-cursor: hand;" text=" ENVIAR ORDEN " />
+                                <Button layoutX="14.0" layoutY="425.0" mnemonicParsing="false"
+                                        onAction="#onEnviarOrdenALaCocina"
+                                        prefHeight="45.0" prefWidth="850.0"
+                                        text=" ENVIAR ORDEN " />
                             </children>
                         </AnchorPane>
                     </content>
@@ -85,14 +90,12 @@
                         <AnchorPane prefHeight="500.0" prefWidth="900.0" style="-fx-padding: 15;">
                             <children>
                                 <Label layoutX="14.0" layoutY="14.0" text=" Comprobantes e Historial General de Comidas Despachadas:">
-                                    <font>
-                                        <Font name="System Bold" size="14.0" />
-                                    </font>
+                                    <font><Font name="System Bold" size="14.0" /></font>
                                 </Label>
 
                                 <TableView fx:id="tvHistorialGeneral" layoutX="14.0" layoutY="45.0" prefHeight="350.0" prefWidth="850.0">
                                     <columns>
-                                        <TableColumn fx:id="colHistorialMesa" prefWidth="100.0" text="N° Mesa" />
+                                        <TableColumn fx:id="colHistorialMesa"     prefWidth="100.0" text="N° Mesa" />
                                         <TableColumn fx:id="colHistorialProducto" prefWidth="400.0" text="Ítem Preparado" />
                                         <TableColumn fx:id="colHistorialCantidad" prefWidth="150.0" text="Cantidad Total" />
                                         <TableColumn fx:id="colHistorialSubtotal" prefWidth="180.0" text="Total Pagado (S/)" />
@@ -100,14 +103,10 @@
                                 </TableView>
 
                                 <Label layoutX="520.0" layoutY="425.0" text=" INGRESOS ACUMULADOS EN CAJA:">
-                                    <font>
-                                        <Font name="System Bold" size="14.0" />
-                                    </font>
+                                    <font><Font name="System Bold" size="14.0" /></font>
                                 </Label>
-                                <Label fx:id="lblTotalHistorial" layoutX="780.0" layoutY="422.0" text="S/ 0.00" textFill="#2e7d32">
-                                    <font>
-                                        <Font name="System Bold" size="18.0" />
-                                    </font>
+                                <Label fx:id="lblTotalHistorial" layoutX="780.0" layoutY="422.0" text="S/ 0.00">
+                                    <font><Font name="System Bold" size="18.0" /></font>
                                 </Label>
                             </children>
                         </AnchorPane>
