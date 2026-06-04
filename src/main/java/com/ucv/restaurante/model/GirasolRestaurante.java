@@ -35,9 +35,9 @@ public class GirasolRestaurante {
         }
     }
     private void cargarMeseros() {
-        listaMeseros.add(new Mesero("Carlos López", "M01", 1));
-        listaMeseros.add(new Mesero("Ana García",   "M02", 1));
-        listaMeseros.add(new Mesero("Pedro Ruiz",   "M03", 2));
+        listaMeseros.add(new Mesero("Diego Vela", "M01", 1));
+        listaMeseros.add(new Mesero("Jack Pastor",   "M02", 1));
+        listaMeseros.add(new Mesero("Jhordan Zoto",   "M03", 2));
     }
 
     public List<Producto> getMenu()            { return menu; }
