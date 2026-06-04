@@ -1,4 +1,5 @@
 package com.ucv.restaurante.model;
+
 public class Mesa {
     private final int numero;
     private final int capacidad;

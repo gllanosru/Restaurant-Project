@@ -23,7 +23,7 @@ public class Main extends Application {
         Scene scene = new Scene(loader.load());
 
 
-        primaryStage.setTitle("Restaurante - Panel de Pedidos");
+        primaryStage.setTitle("Restaurante - Panel de historial de Pedidos");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();

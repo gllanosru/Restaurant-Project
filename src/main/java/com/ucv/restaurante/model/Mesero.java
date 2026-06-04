@@ -11,6 +11,7 @@ public class Mesero {
 
     public String getNombre() { return nombre; }
 
+    // Cuando intente mostrar al mesero, pinte directamente el Nombre y codigo.
     @Override
     public String toString() { return nombre + " (" + codigo + ")"; }
 }

@@ -13,10 +13,12 @@ public class Factura {
     public int getNumeroMesa()  { return numeroMesa; }
     public List<Pedido> getPedidos() { return pedidos; }
 
+    //Usa la Api de Java. Convirtiendo la lista de pedidos en un flujo, extrae el subtotal y los suma todos...
     public double calcularTotal() {
         return pedidos.stream().mapToDouble(Pedido::getSubtotal).sum();
     }
 
+    // Retorna un String formateado, %d se reemplaza por enteros, %.2f por el total con dos decimales.
     public String getResumen() {
         return String.format("Mesa %d | %d ítem(s) | Total: S/ %.2f",
                 numeroMesa, pedidos.size(), calcularTotal());

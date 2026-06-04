@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ucv.restaurante.controller.RestaurantController">
+<VBox prefHeight="650.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ucv.restaurante.controller.RestaurantController">
     <children>
 
         <MenuBar>
@@ -19,7 +19,7 @@
             </menus>
         </MenuBar>
 
-        <TabPane prefHeight="550.0" prefWidth="900.0" tabClosingPolicy="UNAVAILABLE">
+        <TabPane prefHeight="600.0" prefWidth="900.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
 
                 <Tab text=" Carta General ">
@@ -73,7 +73,7 @@
                                     </children>
                                 </HBox>
 
-                                <Button layoutX="14.0" layoutY="425.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="850.0" text=" ENVIAR ORDEN " />
+                                <Button layoutX="14.0" layoutY="425.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="850.0" text="ENVIAR ORDEN" />
                             </children>
                         </AnchorPane>
                     </content>
