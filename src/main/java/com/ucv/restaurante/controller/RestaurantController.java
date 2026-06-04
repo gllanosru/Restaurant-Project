@@ -14,71 +14,57 @@ public class RestaurantController {
     @FXML private TextField txtMesa;
     @FXML private ComboBox<Mesero> cmbMesero;
     @FXML private Label lblTotalHistorial;
-    @FXML private TableView<Producto> tvSeleccionPlatos, tvSeleccionBebidas;
-    @FXML private TableColumn<Producto, String>  colPlatoNombre,    colBebidaNombre;
-    @FXML private TableColumn<Producto, Double>  colPlatoPrecio,    colBebidaPrecio;
-    @FXML private TableColumn<Producto, Integer> colPlatoCant,      colBebidaCant;
-    @FXML private TableColumn<Producto, Void>    colPlatoAcciones,  colBebidaAcciones;
 
-    @FXML private TableView<Pedido>              tvHistorialGeneral;
-    @FXML private TableColumn<Pedido, Integer>   colHistorialMesa,  colHistorialCantidad;
-    @FXML private TableColumn<Pedido, String>    colHistorialProducto;
-    @FXML private TableColumn<Pedido, Double>    colHistorialSubtotal;
+    // Una sola tabla para el menú (Platos y Bebidas juntos gracias a la herencia)
+    @FXML private TableView<Producto> tvMenu;
+    @FXML private TableColumn<Producto, String> colMenuNombre;
+    @FXML private TableColumn<Producto, Double> colMenuPrecio;
+    @FXML private TableColumn<Producto, Integer> colMenuCant;
+    @FXML private TableColumn<Producto, Void> colMenuAcciones;
+
+    // Tabla de historial
+    @FXML private TableView<Pedido> tvHistorialGeneral;
+    @FXML private TableColumn<Pedido, Integer> colHistorialMesa, colHistorialCantidad;
+    @FXML private TableColumn<Pedido, String> colHistorialProducto;
+    @FXML private TableColumn<Pedido, Double> colHistorialSubtotal;
 
     private GirasolRestaurante modelo;
-    private final ObservableList<Producto> datosPlatos  = FXCollections.observableArrayList();
-    private final ObservableList<Producto> datosBebidas = FXCollections.observableArrayList();
-    private ObservableList<Pedido> registrosHistorial;
+    private final ObservableList<Pedido> registrosHistorial = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
+        // 1. Obtener la base de datos (Singleton)
         modelo = GirasolRestaurante.getInstancia();
-        registrosHistorial = FXCollections.observableArrayList(modelo.getListaPedidos());
 
-        colPlatoNombre.setCellValueFactory(new PropertyValueFactory<>("nombreDetallado"));
-        colPlatoPrecio.setCellValueFactory(new PropertyValueFactory<>("precioUnidad"));
-        colPlatoCant.setCellValueFactory(new PropertyValueFactory<>("cantTemp"));
+        // 2. Configurar columnas del Menú
+        colMenuNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        colMenuPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+        colMenuCant.setCellValueFactory(new PropertyValueFactory<>("cantTemp"));
+        inyectarBotonesAccion();
 
-        colBebidaNombre.setCellValueFactory(new PropertyValueFactory<>("nombreDetallado"));
-        colBebidaPrecio.setCellValueFactory(new PropertyValueFactory<>("precioUnidad"));
-        colBebidaCant.setCellValueFactory(new PropertyValueFactory<>("cantTemp"));
-
+        // 3. Configurar columnas del Historial
         colHistorialMesa.setCellValueFactory(new PropertyValueFactory<>("numeroMesa"));
         colHistorialProducto.setCellValueFactory(new PropertyValueFactory<>("nombreProducto"));
         colHistorialCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
         colHistorialSubtotal.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
 
+        // 4. Cargar datos en la UI
+        tvMenu.setItems(FXCollections.observableArrayList(modelo.getMenu()));
         tvHistorialGeneral.setItems(registrosHistorial);
-
-        for (Producto p : modelo.getMenu()) {
-            if (p instanceof Plato) datosPlatos.add(p);
-            else datosBebidas.add(p);
-        }
-
-        inyectarAcciones(colPlatoAcciones);
-        inyectarAcciones(colBebidaAcciones);
-
-        tvSeleccionPlatos.setItems(datosPlatos);
-        tvSeleccionBebidas.setItems(datosBebidas);
-
-        // Cargar meseros en el ComboBox
         cmbMesero.getItems().addAll(modelo.getListaMeseros());
         cmbMesero.getSelectionModel().selectFirst();
-
-        actualizarTotalCaja();
     }
 
-    private void inyectarAcciones(TableColumn<Producto, Void> columna) {
-        columna.setCellFactory(param -> new TableCell<>() {
-            private final Button btnMas   = new Button("+");
+    private void inyectarBotonesAccion() {
+        colMenuAcciones.setCellFactory(param -> new TableCell<>() {
+            private final Button btnMas = new Button("+");
             private final Button btnMenos = new Button("-");
-            private final HBox layout     = new HBox(btnMenos, btnMas);
+            private final HBox layout = new HBox(btnMenos, btnMas);
             {
                 layout.setSpacing(8);
                 layout.setAlignment(Pos.CENTER);
-                // Sin colores — estilo por defecto de JavaFX
-                btnMas.setOnAction(e  -> { getTableView().getItems().get(getIndex()).cambiarCant(1);  getTableView().refresh(); });
-                btnMenos.setOnAction(e -> { getTableView().getItems().get(getIndex()).cambiarCant(-1); getTableView().refresh(); });
+                btnMas.setOnAction(e -> { getTableView().getItems().get(getIndex()).cambiarCant(1); tvMenu.refresh(); });
+                btnMenos.setOnAction(e -> { getTableView().getItems().get(getIndex()).cambiarCant(-1); tvMenu.refresh(); });
             }
             @Override
             protected void updateItem(Void item, boolean empty) {
@@ -91,52 +77,38 @@ public class RestaurantController {
     @FXML
     void onEnviarOrdenALaCocina() {
         String mesaStr = txtMesa.getText().trim();
-        if (mesaStr.isEmpty()) { alerta("Mesa Vacía", "Por favor ingrese un número de mesa."); return; }
+        if (mesaStr.isEmpty()) { alerta("Error", "Ingrese número de mesa."); return; }
 
         try {
             int numMesa = Integer.parseInt(mesaStr);
-            if (numMesa <= 0) throw new NumberFormatException();
+            boolean ordenVacia = true;
 
-            // Validar que la mesa existe
-            Mesa mesa = modelo.getMesa(numMesa);
-            if (mesa == null) { alerta("Mesa no existe", "La mesa " + numMesa + " no existe en el sistema."); return; }
+            // Procesar los productos seleccionados
+            for (Producto prod : tvMenu.getItems()) {
+                if (prod.getCantTemp() > 0) {
+                    Pedido nuevoPedido = new Pedido(numMesa, prod, prod.getCantTemp());
 
-            // Validar que hay un mesero seleccionado
-            Mesero mesero = cmbMesero.getValue();
-            if (mesero == null) { alerta("Sin mesero", "Selecciona un mesero antes de enviar."); return; }
+                    modelo.getListaPedidos().add(nuevoPedido);
+                    registrosHistorial.add(nuevoPedido);
 
-            boolean enviado = mandarComanda(datosPlatos, numMesa) | mandarComanda(datosBebidas, numMesa);
-            if (!enviado) { alerta("Orden vacía", "No has seleccionado ningún producto con (+)."); return; }
+                    prod.cambiarCant(-prod.getCantTemp()); // Resetear cantidad elegida
+                    ordenVacia = false;
+                }
+            }
 
-            tvSeleccionPlatos.refresh();
-            tvSeleccionBebidas.refresh();
+            if (ordenVacia) {
+                alerta("Orden vacía", "No has seleccionado ningún producto.");
+                return;
+            }
+
+            tvMenu.refresh();
             actualizarTotalCaja();
             txtMesa.clear();
-            // Generar factura y mostrar resumen
-            Factura factura = modelo.generarFactura(numMesa);
-            new Alert(Alert.AlertType.INFORMATION,
-                    "Pedido registrado correctamente.\n" +
-                            factura.getResumen() + "\n" +
-                            "Atendido por: " + mesero.getNombre(),
-                    ButtonType.OK).showAndWait();
+            alerta("Éxito", "Pedido enviado a cocina por: " + cmbMesero.getValue().getNombre());
 
         } catch (NumberFormatException e) {
-            alerta("Error", "La mesa debe ser un número entero válido.");
+            alerta("Error", "La mesa debe ser un número entero.");
         }
-    }
-
-    private boolean mandarComanda(ObservableList<Producto> lista, int mesa) {
-        boolean flag = false;
-        for (Producto prod : lista) {
-            if (prod.getCantTemp() > 0) {
-                Pedido p = new Pedido(mesa, prod, prod.getCantTemp());
-                modelo.getListaPedidos().add(p);
-                registrosHistorial.add(p);
-                prod.cambiarCant(-prod.getCantTemp());
-                flag = true;
-            }
-        }
-        return flag;
     }
 
     private void actualizarTotalCaja() {
@@ -146,13 +118,10 @@ public class RestaurantController {
 
     @FXML
     void onResetearTodo() {
-        modelo.getListaPedidos().clear();
         registrosHistorial.clear();
-        datosPlatos.forEach(p  -> p.cambiarCant(-p.getCantTemp()));
-        datosBebidas.forEach(b -> b.cambiarCant(-b.getCantTemp()));
-        modelo.getListaMesas().forEach(Mesa::liberar); // Libera todas las mesas
-        tvSeleccionPlatos.refresh();
-        tvSeleccionBebidas.refresh();
+        modelo.getListaPedidos().clear();
+        tvMenu.getItems().forEach(p -> p.cambiarCant(-p.getCantTemp()));
+        tvMenu.refresh();
         actualizarTotalCaja();
         txtMesa.clear();
     }
@@ -160,9 +129,6 @@ public class RestaurantController {
     @FXML void onSalirAplicacion() { javafx.application.Platform.exit(); }
 
     private void alerta(String tit, String msg) {
-        Alert a = new Alert(Alert.AlertType.WARNING, msg, ButtonType.OK);
-        a.setTitle(tit);
-        a.setHeaderText(null);
-        a.showAndWait();
+        new Alert(Alert.AlertType.INFORMATION, msg, ButtonType.OK).showAndWait();
     }
 }

@@ -1,25 +1,23 @@
-package com.ucv.restaurante.model;  //Solemos utilizar como un identificador que le dice a java en que carpeta esta.
-import javafx.beans.property.SimpleIntegerProperty;
+package com.ucv.restaurante.model;
 
-public abstract class Producto { //Abstract porque no existe un producto generico.
+public abstract class Producto {
     protected String nombre;
     protected double precio;
-    // La propiedad se queda aquí para no necesitar otra clase contenedora
-    private final SimpleIntegerProperty cantTemp = new SimpleIntegerProperty(0);
+    private int cantTemp = 0; // Simplificado: un entero simple en lugar de SimpleIntegerProperty
 
-    public Producto(String nombre, double precio) { this.nombre = nombre; this.precio = precio; }
+    public Producto(String nombre, double precio) {
+        this.nombre = nombre;
+        this.precio = precio;
+    }
+
     public String getNombre() { return nombre; }
     public double getPrecio() { return precio; }
-
-    // Métodos para que el TableView de JavaFX lea directo el texto y precio
-    public String getNombreDetallado() { return nombre; }
-    public double getPrecioUnidad() { return precio; }
-    public int getCantTemp() { return cantTemp.get(); }
-    public SimpleIntegerProperty cantTempProperty() { return cantTemp; }
+    public int getCantTemp() { return cantTemp; }
 
     public void cambiarCant(int valor) {
-        int nueva = cantTemp.get() + valor;
-        if (nueva >= 0) cantTemp.set(nueva);
+        int nueva = cantTemp + valor;
+        if (nueva >= 0) cantTemp = nueva;
     }
+
     public abstract String getDetalles();
 }

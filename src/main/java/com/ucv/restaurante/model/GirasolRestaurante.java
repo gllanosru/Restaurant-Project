@@ -1,61 +1,35 @@
 package com.ucv.restaurante.model;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class GirasolRestaurante {
-    private static GirasolRestaurante instancia;
-    private final List<Producto> menu          = new ArrayList<>();
-    private final List<Pedido>   listaPedidos  = new ArrayList<>();
-    private final List<Mesa>     listaMesas    = new ArrayList<>();
-    private final List<Mesero>   listaMeseros  = new ArrayList<>();
+    private static GirasolRestaurante instancia; // La única instancia
 
+    private final List<Producto> menu = new ArrayList<>();
+    private final List<Pedido> listaPedidos = new ArrayList<>();
+    private final List<Mesero> listaMeseros = new ArrayList<>();
+
+    // Constructor PRIVADO para que nadie use "new GirasolRestaurante()"
     private GirasolRestaurante() {
-        cargarMenu();
-        cargarMesas();
-        cargarMeseros();
+        cargarDatos();
     }
+    //Metodo para obtener una unica instancia desde cualquier parte del codigo..
     public static synchronized GirasolRestaurante getInstancia() {
         if (instancia == null) instancia = new GirasolRestaurante();
         return instancia;
     }
-    private void cargarMenu() {
-        menu.add(new Plato("Lomo Saltado",   32.0, "Personal"));
-        menu.add(new Plato("Ceviche Clásico",35.0, "Personal"));
-        menu.add(new Plato("Arroz con Pollo",25.0, "Familiar"));
-        menu.add(new Plato("Causa Rellena",  18.0, "Personal"));
+
+    private void cargarDatos() {
+        menu.add(new Plato("Lomo Saltado", 32.0, "Personal"));
+        menu.add(new Plato("Ceviche Clásico", 35.0, "Personal"));
         menu.add(new Bebida("Chicha Morada", 12.0, "Jarra"));
-        menu.add(new Bebida("Inca Kola",      3.5, "Personal"));
-        menu.add(new Bebida("Coca Cola",      3.5, "Personal"));
-    }
-    private void cargarMesas() {
-        for (int i = 1; i <= 10; i++) {
-            listaMesas.add(new Mesa(i, 4));
-        }
-    }
-    private void cargarMeseros() {
-        listaMeseros.add(new Mesero("Diego Vela", "M01", 1));
-        listaMeseros.add(new Mesero("Jack Pastor",   "M02", 1));
-        listaMeseros.add(new Mesero("Jhordan Zoto",   "M03", 2));
+        menu.add(new Bebida("Inca Kola", 3.5, "Personal"));
+
+        listaMeseros.add(new Mesero("Diego Vela", "M01"));
+        listaMeseros.add(new Mesero("Jack Pastor", "M02"));
     }
 
-    public List<Producto> getMenu()            { return menu; }
-    public List<Pedido>   getListaPedidos()    { return listaPedidos; }
-    public List<Mesa>     getListaMesas()      { return listaMesas; }
-    public List<Mesero>   getListaMeseros()    { return listaMeseros; }
-
-    public Mesa getMesa(int numero) {
-        return listaMesas.stream()
-                .filter(m -> m.getNumero() == numero)
-                .findFirst()
-                .orElse(null);
-    }
-
-    public Factura generarFactura(int mesa) {
-        List<Pedido> delaMesa = listaPedidos.stream()
-                .filter(p -> p.getNumeroMesa() == mesa)
-                .collect(Collectors.toList());
-        return new Factura(mesa, delaMesa);
-    }
+    public List<Producto> getMenu() { return menu; }
+    public List<Pedido> getListaPedidos() { return listaPedidos; }
+    public List<Mesero> getListaMeseros() { return listaMeseros; }
 }
