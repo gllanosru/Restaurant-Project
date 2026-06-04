@@ -17,14 +17,18 @@ public class Main extends Application {
             return;
         }
 
+
+
         FXMLLoader loader = new FXMLLoader(fxmlLocation);
         Scene scene = new Scene(loader.load());
+
 
         primaryStage.setTitle("Restaurante - Panel de Pedidos");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
     }
+
 
     public static void main(String[] args) {
         launch(args);

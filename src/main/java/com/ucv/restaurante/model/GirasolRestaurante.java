@@ -38,6 +38,7 @@ public class GirasolRestaurante {
         listaMeseros.add(new Mesero("Diego Vela", "M01", 1));
         listaMeseros.add(new Mesero("Jack Pastor",   "M02", 1));
         listaMeseros.add(new Mesero("Jhordan Zoto",   "M03", 2));
+        listaMeseros.add(new Mesero("Mayerly",       "M04", 2));
     }
 
     public List<Producto> getMenu()            { return menu; }
