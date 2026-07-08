@@ -1,26 +1,40 @@
-package com.ucv.restaurante.model;  //Solemos utilizar como un identificador que le dice a java en que carpeta esta.
-import javafx.beans.property.SimpleIntegerProperty;
+package com.ucv.restaurante.model;
 
-public abstract class Producto { //Abstract porque no existe un producto generico.
-    protected String nombre;
-    protected double precio;
+public class Producto extends Seleccionable {
+    private int idProducto;
+    private String nombre;
+    private String categoria;
+    private double precio;
+    private int stock;
+    private boolean activo;
 
-    // Esto permite que la interfaz gráffica escuche los cambios numericos en tiempo real.
-    private final SimpleIntegerProperty cantTemp = new SimpleIntegerProperty(0);
-
-    public Producto(String nombre, double precio) { this.nombre = nombre; this.precio = precio; }
-    public String getNombre() { return nombre; }
-    public double getPrecio() { return precio; }
-
-    // Métodos para que el TableView de JavaFX lea directo el texto y precio
-    public String getNombreDetallado() { return nombre; }
-    public double getPrecioUnidad() { return precio; }
-    public int getCantTemp() { return cantTemp.get(); }
-    public SimpleIntegerProperty cantTempProperty() { return cantTemp; }
-
-    public void cambiarCant(int valor) {
-        int nueva = cantTemp.get() + valor;
-        if (nueva >= 0) cantTemp.set(nueva);
+    public Producto() {
     }
-    public abstract String getDetalles(); //No tiene cuerpo, obliga a que las clases hijas lo definan.
+
+    public Producto(int idProducto, String nombre, String categoria, double precio, int stock, boolean activo) {
+        this.idProducto = idProducto;
+        this.nombre = nombre;
+        this.categoria = categoria;
+        this.precio = precio;
+        this.stock = stock;
+        this.activo = activo;
+    }
+
+    public int getIdProducto() { return idProducto; }
+    public void setIdProducto(int idProducto) { this.idProducto = idProducto; }
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+    public String getCategoria() { return categoria; }
+    public void setCategoria(String categoria) { this.categoria = categoria; }
+    public double getPrecio() { return precio; }
+    public void setPrecio(double precio) { this.precio = precio; }
+    public int getStock() { return stock; }
+    public void setStock(int stock) { this.stock = stock; }
+    public boolean isActivo() { return activo; }
+    public void setActivo(boolean activo) { this.activo = activo; }
+
+    @Override
+    public String toString() {
+        return idProducto + " - " + nombre + " (S/ " + precio + ")";
+    }
 }

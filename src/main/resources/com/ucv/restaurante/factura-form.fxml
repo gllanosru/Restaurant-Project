@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ucv.restaurante.controller.FacturaFormController" spacing="14" style="-fx-padding:24; -fx-background-color:#F6F7F9;" prefWidth="480">
+    <Label fx:id="lblTitulo" text="Factura" style="-fx-font-size:20; -fx-font-weight:bold; -fx-text-fill:#172026;"/>
+    <GridPane hgap="12" vgap="10"><columnConstraints><ColumnConstraints prefWidth="130" halignment="RIGHT"/><ColumnConstraints prefWidth="260"/></columnConstraints>
+        <Label text="Pedido: *" GridPane.rowIndex="0" GridPane.columnIndex="0"/><TextField fx:id="txtPedido" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        <Label text="Cliente: *" GridPane.rowIndex="1" GridPane.columnIndex="0"/><TextField fx:id="txtCliente" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <Label text="RUC/DNI:" GridPane.rowIndex="2" GridPane.columnIndex="0"/><TextField fx:id="txtRuc" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        <Label text="Total: *" GridPane.rowIndex="3" GridPane.columnIndex="0"/><TextField fx:id="txtTotal" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        <Label text="Estado: *" GridPane.rowIndex="4" GridPane.columnIndex="0"/><ComboBox fx:id="cboEstado" GridPane.rowIndex="4" GridPane.columnIndex="1" maxWidth="Infinity"/>
+    </GridPane>
+    <Label fx:id="lblError" visible="false" style="-fx-text-fill:#EF476F;"/>
+    <HBox spacing="10" alignment="CENTER_RIGHT"><Button fx:id="btnCancelar" text="Cancelar" onAction="#onCancelar"/><Button text="Guardar" onAction="#onGuardar"/></HBox>
+</VBox>

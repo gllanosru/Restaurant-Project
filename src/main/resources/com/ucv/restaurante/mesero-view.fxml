@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ucv.restaurante.controller.MeseroController" spacing="12" style="-fx-padding:18; -fx-background-color:#F6F7F9;" prefWidth="820" prefHeight="520">
+    <Label text="Restaurante | Meseros" style="-fx-font-size:22; -fx-font-weight:bold; -fx-text-fill:#172026;"/>
+    <HBox spacing="10"><TextField fx:id="txtFiltro" promptText="Buscar nombre o DNI" prefWidth="260"/><Button text="Buscar" onAction="#onBuscar"/></HBox>
+    <HBox spacing="10"><Button text="+ Nuevo mesero" onAction="#onCrear"/><Button text="Editar" onAction="#onEditar"/><Button text="Eliminar" onAction="#onEliminar"/><Region HBox.hgrow="ALWAYS"/><Label fx:id="lblTotal"/></HBox>
+    <TableView fx:id="tableView" VBox.vgrow="ALWAYS"><columns><TableColumn fx:id="colId" text="ID" prefWidth="60"/><TableColumn fx:id="colNombres" text="Mesero" prefWidth="240"/><TableColumn fx:id="colDni" text="DNI" prefWidth="120"/><TableColumn fx:id="colTelefono" text="Telefono" prefWidth="140"/><TableColumn fx:id="colActivo" text="Activo" prefWidth="80"/></columns></TableView>
+</VBox>

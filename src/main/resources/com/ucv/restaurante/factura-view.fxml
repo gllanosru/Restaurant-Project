@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ucv.restaurante.controller.FacturaController" spacing="12" style="-fx-padding:18; -fx-background-color:#F6F7F9;" prefWidth="940" prefHeight="540">
+    <Label text="Restaurante | Facturas" style="-fx-font-size:22; -fx-font-weight:bold; -fx-text-fill:#172026;"/>
+    <HBox spacing="10"><TextField fx:id="txtFiltro" promptText="Buscar cliente, RUC o estado" prefWidth="280"/><Button text="Buscar" onAction="#onBuscar"/></HBox>
+    <HBox spacing="10"><Button text="+ Nueva factura" onAction="#onCrear"/><Button text="Editar" onAction="#onEditar"/><Button text="Eliminar" onAction="#onEliminar"/><Region HBox.hgrow="ALWAYS"/><Label fx:id="lblTotal"/></HBox>
+    <TableView fx:id="tableView" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
+            <TableColumn fx:id="colPedido" text="Pedido" prefWidth="80"/>
+            <TableColumn fx:id="colCliente" text="Cliente" prefWidth="220"/>
+            <TableColumn fx:id="colRuc" text="RUC/DNI" prefWidth="130"/>
+            <TableColumn fx:id="colTotal" text="Total" prefWidth="90"/>
+            <TableColumn fx:id="colEstado" text="Estado" prefWidth="110"/>
+            <TableColumn fx:id="colFecha" text="Fecha" prefWidth="190"/>
+        </columns>
+    </TableView>
+</VBox>

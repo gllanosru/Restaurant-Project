@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.ucv.restaurante.controller.ProductoController"
+      spacing="12" style="-fx-padding:18; -fx-background-color:#F6F7F9;" prefWidth="820" prefHeight="520">
+    <Label text="Restaurante | Productos" style="-fx-font-size:22; -fx-font-weight:bold; -fx-text-fill:#172026;"><font><Font size="22"/></font></Label>
+    <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-background-color:white; -fx-padding:12; -fx-border-color:#DCE3E8;">
+        <Label text="Filtro:" style="-fx-font-weight:bold;"/>
+        <TextField fx:id="txtFiltro" promptText="Buscar por nombre o categoria" prefWidth="260"/>
+        <Button text="Buscar" onAction="#onBuscar"/>
+    </HBox>
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Button text="+ Nuevo producto" onAction="#onCrear"/>
+        <Button text="Editar" onAction="#onEditar"/>
+        <Button text="Eliminar" onAction="#onEliminar"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label fx:id="lblTotal" text="Total: 0 producto(s)"/>
+    </HBox>
+    <TableView fx:id="tableView" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
+            <TableColumn fx:id="colNombre" text="Producto" prefWidth="230"/>
+            <TableColumn fx:id="colCategoria" text="Categoria" prefWidth="150"/>
+            <TableColumn fx:id="colPrecio" text="Precio" prefWidth="90"/>
+            <TableColumn fx:id="colStock" text="Stock" prefWidth="80"/>
+            <TableColumn fx:id="colActivo" text="Activo" prefWidth="80"/>
+        </columns>
+    </TableView>
+</VBox>

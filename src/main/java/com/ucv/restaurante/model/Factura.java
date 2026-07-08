@@ -1,26 +1,41 @@
 package com.ucv.restaurante.model;
-import java.util.List;
 
-public class Factura {
-    private final int numeroMesa;
-    private final List<Pedido> pedidos;
+import java.time.LocalDateTime;
 
-    public Factura(int numeroMesa, List<Pedido> pedidos) {
-        this.numeroMesa = numeroMesa;
-        this.pedidos = pedidos;
+public class Factura extends Seleccionable {
+    private int idFactura;
+    private int idPedido;
+    private String cliente;
+    private String ruc;
+    private double total;
+    private String estado;
+    private LocalDateTime fecha;
+
+    public Factura() {
     }
 
-    public int getNumeroMesa()  { return numeroMesa; }
-    public List<Pedido> getPedidos() { return pedidos; }
-
-    //Usa la Api de Java. Convirtiendo la lista de pedidos en un flujo, extrae el subtotal y los suma todos...
-    public double calcularTotal() {
-        return pedidos.stream().mapToDouble(Pedido::getSubtotal).sum();
+    public Factura(int idFactura, int idPedido, String cliente, String ruc, double total, String estado, LocalDateTime fecha) {
+        this.idFactura = idFactura;
+        this.idPedido = idPedido;
+        this.cliente = cliente;
+        this.ruc = ruc;
+        this.total = total;
+        this.estado = estado;
+        this.fecha = fecha;
     }
 
-    // Retorna un String formateado, %d se reemplaza por enteros, %.2f por el total con dos decimales.
-    public String getResumen() {
-        return String.format("Mesa %d | %d ítem(s) | Total: S/ %.2f",
-                numeroMesa, pedidos.size(), calcularTotal());
-    }
+    public int getIdFactura() { return idFactura; }
+    public void setIdFactura(int idFactura) { this.idFactura = idFactura; }
+    public int getIdPedido() { return idPedido; }
+    public void setIdPedido(int idPedido) { this.idPedido = idPedido; }
+    public String getCliente() { return cliente; }
+    public void setCliente(String cliente) { this.cliente = cliente; }
+    public String getRuc() { return ruc; }
+    public void setRuc(String ruc) { this.ruc = ruc; }
+    public double getTotal() { return total; }
+    public void setTotal(double total) { this.total = total; }
+    public String getEstado() { return estado; }
+    public void setEstado(String estado) { this.estado = estado; }
+    public LocalDateTime getFecha() { return fecha; }
+    public void setFecha(LocalDateTime fecha) { this.fecha = fecha; }
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.ucv.restaurante.controller.ProductoFormController"
+      spacing="14" style="-fx-padding:24; -fx-background-color:#F6F7F9;" prefWidth="470">
+    <Label fx:id="lblTitulo" text="Producto" style="-fx-font-size:20; -fx-font-weight:bold; -fx-text-fill:#172026;"><font><Font size="20"/></font></Label>
+    <GridPane hgap="12" vgap="10">
+        <columnConstraints><ColumnConstraints prefWidth="120" halignment="RIGHT"/><ColumnConstraints prefWidth="260"/></columnConstraints>
+        <Label text="Nombre: *" GridPane.rowIndex="0" GridPane.columnIndex="0"/><TextField fx:id="txtNombre" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        <Label text="Categoria: *" GridPane.rowIndex="1" GridPane.columnIndex="0"/><TextField fx:id="txtCategoria" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <Label text="Precio: *" GridPane.rowIndex="2" GridPane.columnIndex="0"/><TextField fx:id="txtPrecio" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        <Label text="Stock: *" GridPane.rowIndex="3" GridPane.columnIndex="0"/><TextField fx:id="txtStock" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        <Label text="Activo:" GridPane.rowIndex="4" GridPane.columnIndex="0"/><CheckBox fx:id="chkActivo" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+    </GridPane>
+    <Label fx:id="lblError" visible="false" style="-fx-text-fill:#EF476F;"/>
+    <HBox spacing="10" alignment="CENTER_RIGHT"><Button fx:id="btnCancelar" text="Cancelar" onAction="#onCancelar"/><Button text="Guardar" onAction="#onGuardar" defaultButton="true"/></HBox>
+</VBox>

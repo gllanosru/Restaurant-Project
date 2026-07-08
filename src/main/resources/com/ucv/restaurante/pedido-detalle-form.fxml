@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ucv.restaurante.controller.PedidoDetalleFormController" spacing="14" style="-fx-padding:24; -fx-background-color:#F6F7F9;" prefWidth="480">
+    <Label fx:id="lblTitulo" text="Detalle de pedido" style="-fx-font-size:20; -fx-font-weight:bold; -fx-text-fill:#172026;"/>
+    <GridPane hgap="12" vgap="10"><columnConstraints><ColumnConstraints prefWidth="140" halignment="RIGHT"/><ColumnConstraints prefWidth="250"/></columnConstraints>
+        <Label text="ID pedido: *" GridPane.rowIndex="0" GridPane.columnIndex="0"/><TextField fx:id="txtPedido" promptText="Ejemplo: 1" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        <Label text="ID producto: *" GridPane.rowIndex="1" GridPane.columnIndex="0"/><TextField fx:id="txtProducto" promptText="Ejemplo: 3" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <Label text="Cantidad: *" GridPane.rowIndex="2" GridPane.columnIndex="0"/><TextField fx:id="txtCantidad" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        <Label text="Precio unitario: *" GridPane.rowIndex="3" GridPane.columnIndex="0"/><TextField fx:id="txtPrecio" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+    </GridPane>
+    <Label fx:id="lblError" visible="false" wrapText="true" style="-fx-text-fill:#EF476F;"/>
+    <HBox spacing="10" alignment="CENTER_RIGHT"><Button fx:id="btnCancelar" text="Cancelar" onAction="#onCancelar"/><Button text="Guardar" onAction="#onGuardar"/></HBox>
+</VBox>

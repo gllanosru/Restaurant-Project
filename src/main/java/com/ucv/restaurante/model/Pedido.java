@@ -1,20 +1,37 @@
 package com.ucv.restaurante.model;
 
-public class Pedido {
-    private final int numeroMesa;
-    private final Producto producto; // Relaciona el pedido con un objeto "Producto" que puede ser Plato o Bebida.
-    private final int cantidad;
+import java.time.LocalDateTime;
 
-    public Pedido(int numeroMesa, Producto producto, int cantidad) {
-        this.numeroMesa = numeroMesa;
-        this.producto = producto;
-        this.cantidad = cantidad;
+public class Pedido extends Seleccionable {
+    private int idPedido;
+    private int numeroMesa;
+    private String nombreMesero;
+    private String estado;
+    private double total;
+    private LocalDateTime fecha;
+
+    public Pedido() {
     }
 
-    public int getNumeroMesa() { return numeroMesa; }
-    public int getCantidad() { return cantidad; }
-    public String getNombreProducto() { return producto.getNombre(); }
+    public Pedido(int idPedido, int numeroMesa, String nombreMesero, String estado, double total, LocalDateTime fecha) {
+        this.idPedido = idPedido;
+        this.numeroMesa = numeroMesa;
+        this.nombreMesero = nombreMesero;
+        this.estado = estado;
+        this.total = total;
+        this.fecha = fecha;
+    }
 
-    //Multiplica el precio unitario del producto por la cantidad solicitada en un pedido especifico.
-    public double getSubtotal() { return producto.getPrecio() * cantidad; }
+    public int getIdPedido() { return idPedido; }
+    public void setIdPedido(int idPedido) { this.idPedido = idPedido; }
+    public int getNumeroMesa() { return numeroMesa; }
+    public void setNumeroMesa(int numeroMesa) { this.numeroMesa = numeroMesa; }
+    public String getNombreMesero() { return nombreMesero; }
+    public void setNombreMesero(String nombreMesero) { this.nombreMesero = nombreMesero; }
+    public String getEstado() { return estado; }
+    public void setEstado(String estado) { this.estado = estado; }
+    public double getTotal() { return total; }
+    public void setTotal(double total) { this.total = total; }
+    public LocalDateTime getFecha() { return fecha; }
+    public void setFecha(LocalDateTime fecha) { this.fecha = fecha; }
 }
