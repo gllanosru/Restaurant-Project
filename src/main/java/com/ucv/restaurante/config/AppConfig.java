@@ -46,8 +46,6 @@ public class AppConfig {
         if (type == MeseroFormController.class) return new MeseroFormController(meseroService);
         if (type == PedidoController.class) return new PedidoController(pedidoService);
         if (type == PedidoFormController.class) return new PedidoFormController(pedidoService, pedidoDetalleService, productoService);
-        if (type == PedidoDetalleController.class) return new PedidoDetalleController(pedidoDetalleService);
-        if (type == PedidoDetalleFormController.class) return new PedidoDetalleFormController(pedidoDetalleService);
         if (type == FacturaController.class) return new FacturaController(facturaService);
         if (type == FacturaFormController.class) return new FacturaFormController(facturaService);
         try {

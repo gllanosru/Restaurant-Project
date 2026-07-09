@@ -32,11 +32,6 @@ public class MenuController {
     }
 
     @FXML
-    private void abrirDetallePedidos() {
-        abrirVentana("/com/ucv/restaurante/pedido-detalle-view.fxml", "Restaurante - Detalle de pedidos");
-    }
-
-    @FXML
     private void abrirFacturas() {
         abrirVentana("/com/ucv/restaurante/factura-view.fxml", "Restaurante - Facturas");
     }

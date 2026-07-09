@@ -13,7 +13,7 @@ public class MainApp extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ucv/restaurante/menu.fxml"));
         loader.setControllerFactory(context::getController);
 
-        Scene scene = new Scene(loader.load(), 980, 600);
+        Scene scene = new Scene(loader.load(), 340, 520);
         stage.setTitle("Restaurante - Sistema de gestion");
         stage.setScene(scene);
         stage.setResizable(false);

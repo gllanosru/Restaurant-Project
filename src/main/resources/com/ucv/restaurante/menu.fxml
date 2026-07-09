@@ -4,53 +4,26 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.ucv.restaurante.controller.MenuController"
-            style="-fx-background-color:#F5F6F8;">
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.ucv.restaurante.controller.MenuController"
+      prefWidth="340" prefHeight="520" spacing="12" alignment="TOP_CENTER"
+      style="-fx-background-color:#202A32; -fx-padding:26;">
 
-    <left>
-        <VBox prefWidth="250" spacing="14" style="-fx-background-color:#202A32; -fx-padding:28;">
-            <Label text="RESTAURANTE" style="-fx-text-fill:white; -fx-font-size:24; -fx-font-weight:bold;">
-                <font><Font size="24"/></font>
-            </Label>
-            <Label text="Sistema de gestion" style="-fx-text-fill:#B8C2CC; -fx-font-size:13;"/>
+    <Label text="RESTAURANTE" alignment="CENTER" style="-fx-text-fill:white; -fx-font-size:23; -fx-font-weight:bold;">
+        <font><Font size="24"/></font>
+    </Label>
+    <Label text="Sistema de gestion" alignment="CENTER" style="-fx-text-fill:#B8C2CC; -fx-font-size:13;"/>
 
-            <Separator style="-fx-background-color:#46535E;"/>
+    <Separator prefWidth="250" style="-fx-background-color:#46535E;"/>
 
-            <Button text="Productos" onAction="#abrirProductos" prefWidth="194" prefHeight="40" style="-fx-background-color:#2F6F73; -fx-text-fill:white; -fx-font-weight:bold;"/>
-            <Button text="Mesas" onAction="#abrirMesas" prefWidth="194" prefHeight="40" style="-fx-background-color:#33414B; -fx-text-fill:white; -fx-font-weight:bold;"/>
-            <Button text="Meseros" onAction="#abrirMeseros" prefWidth="194" prefHeight="40" style="-fx-background-color:#33414B; -fx-text-fill:white; -fx-font-weight:bold;"/>
-            <Button text="Pedidos" onAction="#abrirPedidos" prefWidth="194" prefHeight="40" style="-fx-background-color:#33414B; -fx-text-fill:white; -fx-font-weight:bold;"/>
-            <Button text="Facturas" onAction="#abrirFacturas" prefWidth="194" prefHeight="40" style="-fx-background-color:#33414B; -fx-text-fill:white; -fx-font-weight:bold;"/>
+    <Button text="Productos" onAction="#abrirProductos" prefWidth="250" prefHeight="40" style="-fx-background-color:#2F6F73; -fx-text-fill:white; -fx-font-weight:bold;"/>
+    <Button text="Mesas" onAction="#abrirMesas" prefWidth="250" prefHeight="40" style="-fx-background-color:#33414B; -fx-text-fill:white; -fx-font-weight:bold;"/>
+    <Button text="Meseros" onAction="#abrirMeseros" prefWidth="250" prefHeight="40" style="-fx-background-color:#33414B; -fx-text-fill:white; -fx-font-weight:bold;"/>
+    <Button text="Pedidos" onAction="#abrirPedidos" prefWidth="250" prefHeight="40" style="-fx-background-color:#33414B; -fx-text-fill:white; -fx-font-weight:bold;"/>
+    <Button text="Facturas" onAction="#abrirFacturas" prefWidth="250" prefHeight="40" style="-fx-background-color:#33414B; -fx-text-fill:white; -fx-font-weight:bold;"/>
 
-            <Region VBox.vgrow="ALWAYS"/>
+    <Region VBox.vgrow="ALWAYS"/>
 
-            <Button text="Salir" onAction="#salir" prefWidth="194" prefHeight="38" style="-fx-background-color:#B94A5A; -fx-text-fill:white; -fx-font-weight:bold;"/>
-        </VBox>
-    </left>
-
-    <center>
-        <VBox spacing="20" style="-fx-padding:36 42;">
-            <VBox spacing="6">
-                <Label text="Panel principal" style="-fx-text-fill:#202A32; -fx-font-size:28; -fx-font-weight:bold;">
-                    <font><Font size="28"/></font>
-                </Label>
-                <Label text="Seleccione un modulo para administrar el restaurante."
-                       style="-fx-text-fill:#64717D; -fx-font-size:14;"/>
-            </VBox>
-
-            <VBox spacing="10" style="-fx-background-color:white; -fx-padding:22; -fx-border-color:#D8DEE4;">
-                <Label text="Seleccione una opcion del menu lateral."
-                       style="-fx-text-fill:#202A32; -fx-font-size:16; -fx-font-weight:bold;"/>
-                <Label text="Desde ahi puede administrar productos, mesas, meseros, pedidos y facturas."
-                       wrapText="true" style="-fx-text-fill:#64717D; -fx-font-size:13;"/>
-            </VBox>
-        </VBox>
-    </center>
-
-    <bottom>
-        <Label text="Restaurante - Gestion operativa"
-               BorderPane.alignment="CENTER" style="-fx-padding:10; -fx-text-fill:#64717D;"/>
-    </bottom>
-</BorderPane>
+    <Button text="Salir" onAction="#salir" prefWidth="250" prefHeight="38" style="-fx-background-color:#B94A5A; -fx-text-fill:white; -fx-font-weight:bold;"/>
+</VBox>
