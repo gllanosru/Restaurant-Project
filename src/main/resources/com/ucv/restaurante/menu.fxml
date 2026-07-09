@@ -40,18 +40,12 @@
                        style="-fx-text-fill:#64717D; -fx-font-size:14;"/>
             </VBox>
 
-            <GridPane hgap="14" vgap="14">
-                <columnConstraints>
-                    <ColumnConstraints prefWidth="210"/>
-                    <ColumnConstraints prefWidth="210"/>
-                </columnConstraints>
-
-                <Button text="Productos" onAction="#abrirProductos" prefWidth="210" prefHeight="58" style="-fx-background-color:white; -fx-border-color:#D8DEE4; -fx-text-fill:#202A32; -fx-font-size:15; -fx-font-weight:bold;"/>
-                <Button text="Mesas" onAction="#abrirMesas" prefWidth="210" prefHeight="58" GridPane.columnIndex="1" style="-fx-background-color:white; -fx-border-color:#D8DEE4; -fx-text-fill:#202A32; -fx-font-size:15; -fx-font-weight:bold;"/>
-                <Button text="Meseros" onAction="#abrirMeseros" prefWidth="210" prefHeight="58" GridPane.rowIndex="1" style="-fx-background-color:white; -fx-border-color:#D8DEE4; -fx-text-fill:#202A32; -fx-font-size:15; -fx-font-weight:bold;"/>
-                <Button text="Pedidos" onAction="#abrirPedidos" prefWidth="210" prefHeight="58" GridPane.rowIndex="1" GridPane.columnIndex="1" style="-fx-background-color:white; -fx-border-color:#D8DEE4; -fx-text-fill:#202A32; -fx-font-size:15; -fx-font-weight:bold;"/>
-                <Button text="Facturas" onAction="#abrirFacturas" prefWidth="210" prefHeight="58" GridPane.rowIndex="2" style="-fx-background-color:white; -fx-border-color:#D8DEE4; -fx-text-fill:#202A32; -fx-font-size:15; -fx-font-weight:bold;"/>
-            </GridPane>
+            <VBox spacing="10" style="-fx-background-color:white; -fx-padding:22; -fx-border-color:#D8DEE4;">
+                <Label text="Seleccione una opcion del menu lateral."
+                       style="-fx-text-fill:#202A32; -fx-font-size:16; -fx-font-weight:bold;"/>
+                <Label text="Desde ahi puede administrar productos, mesas, meseros, pedidos y facturas."
+                       wrapText="true" style="-fx-text-fill:#64717D; -fx-font-size:13;"/>
+            </VBox>
         </VBox>
     </center>
 
