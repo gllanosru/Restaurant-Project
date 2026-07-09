@@ -16,6 +16,7 @@ public class PedidoRepository implements IPedidoRepository {
 
     @Override public List<Pedido> findAll() { return findByFilters(""); }
 
+
     @Override
     public List<Pedido> findByFilters(String filtro) {
         String sql = """
