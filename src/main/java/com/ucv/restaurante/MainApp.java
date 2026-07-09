@@ -9,14 +9,8 @@ import javafx.stage.Stage;
 public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        AppConfig context = AppConfig.getInstance();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ucv/restaurante/menu.fxml"));
-        loader.setControllerFactory(context::getController);
-
-        Scene scene = new Scene(loader.load(), 340, 520);
-        stage.setTitle("Restaurante - Sistema de gestion");
-        stage.setScene(scene);
-        stage.setResizable(false);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ucv/restaurante/login.fxml"));
+        stage.setScene(new Scene(loader.load()));
         stage.show();
     }
 
