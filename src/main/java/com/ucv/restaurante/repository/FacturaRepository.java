@@ -44,6 +44,12 @@ public class FacturaRepository implements IFacturaRepository {
             ps.setString(5, nvl(f.getEstado()));
             ps.executeUpdate();
         } catch (SQLException e) {
+            if (e.getErrorCode() == 2627 || e.getErrorCode() == 2601) {
+                throw new IllegalStateException("Ya existe una factura registrada para el pedido N.° " + f.getIdPedido() + ".");
+            }
+            if (e.getErrorCode() == 547) {
+                throw new IllegalArgumentException("El pedido N.° " + f.getIdPedido() + " no existe.");
+            }
             throw new RuntimeException("Error al registrar factura: " + e.getMessage(), e);
         }
     }
