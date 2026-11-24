@@ -1,9 +1,11 @@
 package com.ucv.restaurante.controller;
 
+import com.ucv.restaurante.model.Usuario;
 import com.ucv.restaurante.service.UsuarioService;
 import com.ucv.restaurante.util.AlertUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -23,7 +25,7 @@ public class LoginController {
     @FXML
     private void onIngresar() {
         String usuario = txtUsuario.getText().trim();
-        String password = txtPassword.getText();
+        String password = txtPassword.getText().trim();
 
         if (usuario.isBlank() || password.isBlank()) {
             AlertUtil.advertencia("Login", "Ingrese usuario y contrasena.");
@@ -31,8 +33,9 @@ public class LoginController {
         }
 
         try {
-            if (service.autenticar(usuario, password)) {
-                abrirMenu();
+            Usuario autenticado = service.autenticarConRol(usuario, password);
+            if (autenticado != null) {
+                abrirMenu(autenticado);
             } else {
                 AlertUtil.advertencia("Login", "Usuario o contrasena incorrectos.");
             }
@@ -41,12 +44,17 @@ public class LoginController {
         }
     }
 
-    private void abrirMenu() {
+    private void abrirMenu(Usuario usuarioAutenticado) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ucv/restaurante/menu.fxml"));
+            Parent root = loader.load();
+
+            MenuController menuController = loader.getController();
+            menuController.setUsuarioActual(usuarioAutenticado);
+
             Stage stage = (Stage) txtUsuario.getScene().getWindow();
             stage.setTitle("Restaurante - Menu");
-            stage.setScene(new Scene(loader.load()));
+            stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
             AlertUtil.error("Error", "No se pudo abrir el menu: " + e.getMessage());

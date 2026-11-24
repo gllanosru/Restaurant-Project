@@ -17,13 +17,13 @@
 
     <Separator prefWidth="250" style="-fx-background-color:#46535E;"/>
 
-    <Button text="Productos" onAction="#abrirProductos" prefWidth="250" prefHeight="40" style="-fx-background-color:#2F6F73; -fx-text-fill:white; -fx-font-weight:bold;"/>
-    <Button text="Mesas" onAction="#abrirMesas" prefWidth="250" prefHeight="40" style="-fx-background-color:#33414B; -fx-text-fill:white; -fx-font-weight:bold;"/>
-    <Button text="Meseros" onAction="#abrirMeseros" prefWidth="250" prefHeight="40" style="-fx-background-color:#33414B; -fx-text-fill:white; -fx-font-weight:bold;"/>
-    <Button text="Pedidos" onAction="#abrirPedidos" prefWidth="250" prefHeight="40" style="-fx-background-color:#33414B; -fx-text-fill:white; -fx-font-weight:bold;"/>
-    <Button text="Facturas" onAction="#abrirFacturas" prefWidth="250" prefHeight="40" style="-fx-background-color:#33414B; -fx-text-fill:white; -fx-font-weight:bold;"/>
+    <Button fx:id="btnProductos" text="Productos" onAction="#abrirProductos" prefWidth="250" prefHeight="40" style="-fx-background-color:#2F6F73; -fx-text-fill:white; -fx-font-weight:bold;"/>
+    <Button fx:id="btnMesas" text="Mesas" onAction="#abrirMesas" prefWidth="250" prefHeight="40" style="-fx-background-color:#33414B; -fx-text-fill:white; -fx-font-weight:bold;"/>
+    <Button fx:id="btnMeseros" text="Meseros" onAction="#abrirMeseros" prefWidth="250" prefHeight="40" style="-fx-background-color:#33414B; -fx-text-fill:white; -fx-font-weight:bold;"/>
+    <Button fx:id="btnPedidos" text="Pedidos" onAction="#abrirPedidos" prefWidth="250" prefHeight="40" style="-fx-background-color:#33414B; -fx-text-fill:white; -fx-font-weight:bold;"/>
+    <Button fx:id="btnFacturas" text="Facturas" onAction="#abrirFacturas" prefWidth="250" prefHeight="40" style="-fx-background-color:#33414B; -fx-text-fill:white; -fx-font-weight:bold;"/>
 
     <Region VBox.vgrow="ALWAYS"/>
 
-    <Button text="Salir" onAction="#salir" prefWidth="250" prefHeight="38" style="-fx-background-color:#B94A5A; -fx-text-fill:white; -fx-font-weight:bold;"/>
+    <Button fx:id="btnSalir" text="Salir" onAction="#salir" prefWidth="250" prefHeight="38" style="-fx-background-color:#B94A5A; -fx-text-fill:white; -fx-font-weight:bold;"/>
 </VBox>

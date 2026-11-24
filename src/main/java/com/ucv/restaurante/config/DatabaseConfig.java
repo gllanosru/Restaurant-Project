@@ -7,11 +7,10 @@ import java.sql.SQLException;
 import java.util.Enumeration;
 
 public class DatabaseConfig implements AutoCloseable {
-    private static final String URL = "jdbc:sqlserver://localhost:53322;"
-            + "instanceName=SQLEXPRESS;"
+    private static final String URL = "jdbc:sqlserver://localhost\\SQLEXPRESS;"
             + "databaseName=Restaurante;"
-            + "user=adm;"
-            + "password=123456;"
+            + "user=adminUCV;"
+            + "password=123456789;"
             + "trustServerCertificate=true;"
             + "encrypt=false;";
 
